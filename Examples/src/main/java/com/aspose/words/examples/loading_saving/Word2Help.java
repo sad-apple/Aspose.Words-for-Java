@@ -1,3 +1,10 @@
+/* 
+ * Copyright 2001-2015 Aspose Pty Ltd. All Rights Reserved.
+ *
+ * This file is part of Aspose.Words. The source code in this file
+ * is only intended as a supplement to the documentation, and is provided
+ * "as is", without warranty of any kind, either expressed or implied.
+ */
 package com.aspose.words.examples.loading_saving;
 
 import com.aspose.words.*;
@@ -27,11 +34,12 @@ public class Word2Help
 {
     public static void main(String[] args) throws Exception
     {
-        //ExStart:Word2Help
-		// The path to the documents directory.
-        String dataDir = Utils.getDataDir(Word2Help.class);
+        // The path to the documents directory.
+//        String dataDir = Utils.getDataDir(Word2Help.class);
 
-        // Specifies the destination directory where the HTML files are output.
+        String dataDir = "F:\\github\\workspace\\Aspose.Words-for-Java\\Examples\\src\\main\\resources\\com\\aspose\\words\\examples\\loading_saving\\Word2Help\\";
+
+                // Specifies the destination directory where the HTML files are output.
         File outPath = new File(dataDir, "Out");
 
         // Remove any existing output and recreate the Out folder.
@@ -68,12 +76,11 @@ public class Word2Help
         topics.addFromDir(dataDir);
         topics.writeHtml(outDir);
         topics.writeContentXml(outDir);
-		//ExEnd:Word2Help
 
         System.out.println("Conversion completed successfully.");
     }
 }
-//ExStart:Hyperlink
+
 /**
  * This "facade" class makes it easier to work with a hyperlink field in a Word document.
  *
@@ -245,8 +252,7 @@ class Hyperlink
                     "\""                // One closing apostrophe
     );
 }
-//ExEnd:Hyperlink
-//ExStart:RegularExpressions
+
 /**
  * Central storage for regular expressions used in the project.
  */
@@ -303,9 +309,6 @@ class RegularExpressions
     private static final String HTML_BODY_DIV_START_PATTERN = "(?<=\\<body\\>\\s{0,200}\\<div)\\s";
     private static Pattern gHtmlBodyDivStart;
 }
-//ExEnd:RegularExpressions
-
-//ExStart:TopicWord2Help
 
 /**
  * Represents a single topic that will be written as an HTML file.
@@ -402,7 +405,7 @@ class TopicWord2Help
         HtmlSaveOptions saveOptions = new HtmlSaveOptions();
         saveOptions.setPrettyFormat(true);
         // This is to allow headings to appear to the left of main text.
-        saveOptions.setAllowNegativeIndent(true);
+        saveOptions.setAllowNegativeLeftIndent(true);
         // Disable headers and footers.
         saveOptions.setExportHeadersFootersMode(ExportHeadersFootersMode.NONE);
 
@@ -487,8 +490,7 @@ class TopicWord2Help
     private final String mTitle;
     private final int mHeadingLevel;
 }
-//ExEnd:TopicWord2Help
-//ExStart:TopicCollection
+
 /**
  * This is the main class.
  * Loads Word document(s), splits them into topics, saves HTML files and builds content.xml.
@@ -632,7 +634,7 @@ class TopicCollection
     {
         DocumentBuilder builder = new DocumentBuilder(doc);
 
-        NodeCollection paras = doc.getChildNodes(NodeType.PARAGRAPH, true);
+        NodeCollection paras = doc.getChildNodes(NodeType.PARAGRAPH, true, false);
         ArrayList topicStartParas = new ArrayList();
 
         for (Paragraph para : (Iterable<Paragraph>) paras)
@@ -649,7 +651,7 @@ class TopicCollection
             {
                 // Pull up headings. For example: if Heading 1-4 become topics, then I want Headings 5+
                 // to become Headings 4+. Maybe I want to pull up even higher?
-                para.getParagraphFormat().setStyleIdentifier(style - 1);
+                para.getParagraphFormat().setStyleIdentifier((/*StyleIdentifier*/int)((int)style - 1));
             }
         }
 
@@ -743,5 +745,4 @@ class TopicCollection
      */
     private static final int MAX_TOPIC_HEADING = StyleIdentifier.HEADING_4;
 }
-//ExEnd:TopicCollection
 

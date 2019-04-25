@@ -12,7 +12,9 @@ public class AppendDocuments
     {
         //ExStart:
         // The path to the documents directory.
-        String dataDir = Utils.getDataDir(AppendDocuments.class);
+//        String dataDir = Utils.getDataDir(AppendDocuments.class);
+
+        String dataDir = "F:\\github\\workspace\\Aspose.Words-for-Java\\Examples\\src\\main\\resources\\com\\aspose\\words\\examples\\quickstart\\AppendDocuments\\";
 
         // Load the destination and source documents from disk.
         Document dstDoc = new Document(dataDir + "TestFile.Destination.doc");
